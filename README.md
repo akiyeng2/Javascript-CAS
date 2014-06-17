@@ -1,10 +1,8 @@
-#Javascript Symbolic Differetiator
-##Hopefully, at some point, this will take some derivatives. 
+#Javascript Symbolic Differentiator
 
-Right now though, it just parses, tree-ifies, and evaluates infix expression.
 
 ##Usage
 
-Example function is `log(2+8*8+4+300/10)/2`
+To make an equation, use 'var y = new Equation("x^4-sin(x)");'
 
-Evaluation: `evaluate("log(2+8*8+4*300/10)/2");`
+To differentiate, use 'var dy = y.differentiate();`
