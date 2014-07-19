@@ -79,5 +79,8 @@ Equation.prototype.equals = function(second) {
     return this.toString() == second.toString();
 }
 
+Equation.prototype.compile = function() {
+	return new Function("x", "return " + this.tree.compile());
+}
 
 pi = Math.PI;

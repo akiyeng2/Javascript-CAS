@@ -64,12 +64,10 @@ function tokenize(expression) {
 					} else if (i == SUBTRACTION) {
 						precedence = 1;
 						associativity = LEFT_ASSOCIATIVE;
-						var previous = (toks.length > 0) ? toks[toks.length - 1]
-								: null;
+						var previous = (toks.length > 0) ? toks[toks.length - 1]: null;
 						
-						if (toks.length == 0 || previous.type == 4
-								|| previous.type == 2) {
-							precedence = 7;
+						if (toks.length == 0 || previous.type == 4 || previous.type == 2) {
+							precedence = 10;
 							associativity = RIGHT_ASSOCIATIVE;
 							txt = "-";
 							operands = 1;
@@ -215,14 +213,17 @@ function toTree(array) {
 	var stack = new Stack();
 	for ( var i = 0; i < array.length; i++) {
 		var token = array[i];
+
 		if (token.type == VARIABLE || token.type == NUMBER) {
 			stack.push(new Operand(token));
 		} else if (token.type == FUNCTION || token.type == OPERATOR) {
 
 			var numOperands = token.operands;
 			if (numOperands == 1) {
+
 				var operator = new Unary(token);
 				operator.operand = stack.pop();
+
 			} else {
 
 				var operator = new Binary(token);
@@ -323,3 +324,4 @@ function toTex(tree, str, parent) {
 	
 	return result;
 }
+

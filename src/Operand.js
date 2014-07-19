@@ -79,3 +79,7 @@ Operand.prototype.standardize = function() {
 Operand.prototype.simplify = function() {
 	return this;
 };
+
+Operand.prototype.compile = function() {
+	return this.toString();
+}

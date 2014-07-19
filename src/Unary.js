@@ -1,3 +1,4 @@
+
 function Unary(token, operand) {
 	var uOps = {
 		"-" : {
@@ -5,7 +6,7 @@ function Unary(token, operand) {
 			"txt" : "-",
 			"type" : 4,
 			"associativity" : 1,
-			"precedence" : 100,
+			"precedence" : 10,
 			"operands" : 1
 		},
 		"sin" : {
@@ -136,14 +137,6 @@ function Unary(token, operand) {
 		"abs" : {
 			"id" : 1,
 			"txt" : "abs",
-			"type" : 1,
-			"associativity" : null,
-			"precedence" : 100,
-			"operands" : 1
-		},
-		"log" : {
-			"id" : 1,
-			"txt" : "log",
 			"type" : 1,
 			"associativity" : null,
 			"precedence" : 100,
@@ -468,3 +461,35 @@ Unary.prototype.simplify = function(respect) {
 		return this;
 	}
 };
+
+Unary.prototype.compile = function() {
+
+	var inside = this.operand.compile();
+	if(this.txt == "-") {
+		return "-" +inside;
+	} else if (this.txt == "ln") {
+		return "Math.log(" + inside + ")";
+	} else if (this.txt == "log") {
+		return "Math.log(" + inside + ")/2.302585092994046"; 
+	} else if (this.txt == "csc") {
+		return "1/Math.sin(" + inside + ")";
+	} else if(this.txt == "sec") {
+		return "1/Math.cos(" + inside + ")";
+	} else if(this.txt == "cot") {
+		return "1/Math.tan(" + inside + ")";
+	} else if(this.txt == "arcsin") {
+		return "Math.asin(" + inside + ")";
+	} else if (this.txt == "arccos") {
+		return "Math.acos(" + inside + ")";
+	} else if(this.txt == "arctan") {
+		return "Math.atan(" + inside + ")";
+	} else if(this.txt == "arccsc") {
+		return "Math.asin(1/(" + inside + "))";
+	} else if(this.txt == "arcsec") {
+		return "Math.asin(1/(" + inside + "))";
+	} else if(this.txt == "arccot") {
+		return "Math.PI/2 - Math.atan(" + inside + ")";
+	} else {
+		return "Math." + this.txt + "(" + inside + ")";
+	}
+}

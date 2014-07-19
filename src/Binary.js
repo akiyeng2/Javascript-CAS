@@ -281,3 +281,11 @@ Binary.prototype.simplify = function(respect) {
 
 };
 
+
+Binary.prototype.compile = function() {
+	if(this.txt === "^") {
+		return "Math.pow(" + this.left.compile() + "," + this.right.compile() + ")";
+	} else {
+		return "(" + this.left.compile() + ")" + this.txt + "(" + this.right.compile() + ")";
+	}
+}
