@@ -38,7 +38,7 @@ function tokenize(expression) {
 				var type, precedence = null, associativity = null, operands = null, txt = match[i];
 				if (i == FUNCTION) {
 
-					if (match[i].length == 1) {
+					if (match[i].length == 1 || match[i].startsWith("v")) {
 						type = VARIABLE;
 						if (match[i] == "e") {
 							type = NUMBER;
